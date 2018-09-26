@@ -1,0 +1,1131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Map</title>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-FgrN7TNWh_8yh3obS9dTNdSJtJEN9FM&libraries=places"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">
+        <link rel="stylesheet" href="font-awesome-4.5.0/css/font-awesome.min.css">                
+        <link rel="stylesheet" href="css/bootstrap.min.css">                                      
+        <link rel="stylesheet" href="css/templatemo-style.css">                                  
+        <link rel="icon" type="image/ico" href="img/favicon.ico">
+
+        <style>
+
+            HTML  CSS  JS  Result
+            Edit on 
+            #map-canvas {
+                margin: 0;
+                padding: 0;
+                height: 400px;
+                max-width: none;
+            }
+            #travel_mode
+            {
+                position: relative;
+                float: left;
+            }
+            #icons
+            {
+                color: black;
+            }
+            *:focus {
+                outline:none ;
+            }
+            select option
+            {
+                color: black; 
+            }
+            #map-canvas img {
+                max-width: none !important;
+            }
+            .gm-style-iw {
+                width: 350px !important;
+                top: 15px !important;
+                left: 0px !important;
+                background-color: #fff;
+                box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+                border: 1px solid rgba(72, 181, 233, 0.6);
+                border-radius: 2px 2px 10px 10px;
+            }
+            #iw-container {
+                margin-bottom: 10px;
+            }
+            #iw-container .iw-title {
+                font-family: 'Open Sans Condensed', sans-serif;
+                font-size: 22px;
+                font-weight: 400;
+                padding: 10px;
+                background-color: #48b5e9;
+                color: white;
+                margin: 0;
+                border-radius: 2px 2px 0 0;
+            }
+            #iw-container .iw-content {
+                font-size: 13px;
+                line-height: 18px;
+                font-weight: 400;
+                margin-right: 1px;
+                padding: 15px 5px 20px 15px;
+                max-height: 140px;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+            .iw-content img {
+                float: right;
+                margin: 0 5px 5px 10px; 
+            }
+            .iw-subTitle {
+                font-size: 16px;
+                font-weight: 700;
+                padding: 5px 0;
+            }
+            .iw-bottom-gradient {
+                position: absolute;
+                width: 326px;
+                height: 25px;
+                bottom: 10px;
+                right: 18px;
+                background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+                background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+                background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+                background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+            }
+
+
+
+            #btn {
+                margin-top: 38%;
+                background: #3498db;
+                background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+                background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+                background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+                background-image: -o-linear-gradient(top, #3498db, #2980b9);
+                background-image: linear-gradient(to bottom, #3498db, #2980b9);
+                -webkit-border-radius: 28;
+                -moz-border-radius: 28;
+                border-radius: 28px;
+                font-family: Georgia;
+                color: #ffffff;
+                font-size: 18px;
+                padding: 2.5px 10px 2.5px 10px;
+                text-decoration: none;
+            }
+
+            #btn:hover {
+                background: #3cb0fd;
+                background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+                background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+                background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+                background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+                background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+                text-decoration: none;
+            }
+            
+            
+            
+            #btn1 {
+                margin-top: 38%;
+                background: #3498db;
+                background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+                background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+                background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+                background-image: -o-linear-gradient(top, #3498db, #2980b9);
+                background-image: linear-gradient(to bottom, #3498db, #2980b9);
+                -webkit-border-radius: 28;
+                -moz-border-radius: 28;
+                border-radius: 28px;
+                font-family: Georgia;
+                color: #ffffff;
+                font-size: 18px;
+                padding: 2.5px 10px 2.5px 10px;
+                text-decoration: none;
+            }
+
+            #btn1:hover {
+                background: #3cb0fd;
+                background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+                background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+                background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+                background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+                background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+                text-decoration: none;
+            }
+
+
+
+
+
+
+
+            .styled-select {
+                background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+                height: 29px;
+                overflow: hidden;
+                width: 240px;
+            }
+
+            .styled-select select {
+                background: transparent;
+                border: none;
+                font-size: 14px;
+                height: 29px;
+                padding: 5px; /* If you add too much padding here, the options won't show in IE */
+                width: 268px;
+            }
+
+            .styled-select.slate {
+                background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
+                height: 34px;
+                width: 240px;
+            }
+
+            .styled-select.slate select {
+                border: 1px solid #ccc;
+                font-size: 16px;
+                height: 34px;
+                width: 268px;
+            }
+            .semi-square {
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+            }
+
+            /* -------------------- Colors: Background */
+
+            .blue    { background-color: #3b8ec2; }
+            .blue select    { color: #fff; }
+            #mainselection select {
+                border: 0;
+                color: #EEE;
+                background: transparent;
+                font-size: 20px;
+                font-weight: bold;
+                padding: 2px 10px;
+                width: 378px;
+                *width: 350px;
+                *background: #58B14C;
+                -webkit-appearance: none;
+            }
+
+            #mainselection {
+                overflow:hidden;
+                width:350px;
+                -moz-border-radius: 9px 9px 9px 9px;
+                -webkit-border-radius: 9px 9px 9px 9px;
+                border-radius: 9px 9px 9px 9px;
+                box-shadow: 1px 1px 11px #330033;
+                background: #58B14C url("http://i62.tinypic.com/15xvbd5.png") no-repeat scroll 319px center;
+            }
+
+
+            /* -------------------- Select Box Styles: stackoverflow.com Method */
+            /* -------------------- Source: http://stackoverflow.com/a/5809186 */
+            select#soflow, select#soflow-color {
+                -webkit-appearance: button;
+                -webkit-border-radius: 2px;
+                -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+                -webkit-padding-end: 20px;
+                -webkit-padding-start: 2px;
+                -webkit-user-select: none;
+                background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+                background-position: 97% center;
+                background-repeat: no-repeat;
+                border: 1px solid #AAA;
+                color: #555;
+                font-size: inherit;
+                margin: 20px;
+                overflow: hidden;
+                padding: 5px 10px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 300px;
+            }
+
+            select#soflow-color {
+                color: #fff;
+                background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#779126, #779126 40%, #779126);
+                background-color: #779126;
+                -webkit-border-radius: 20px;
+                -moz-border-radius: 20px;
+                border-radius: 20px;
+                padding-left: 15px;
+            }
+            
+            
+            
+            
+            #radios label {
+	cursor: pointer;
+	position: relative;
+}
+
+#radios label + label {
+	margin-left: 15px;
+}
+
+input[type="radio"] {
+	opacity: 0; /* hidden but still tabable */
+	position: absolute;
+}
+
+input[type="radio"] + span {
+	font-family: 'Material Icons';
+	color: #B3CEFB;
+	border-radius: 50%;
+	padding: 12px;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+}
+
+input[type="radio"]:checked + span {
+	color: #D9E7FD;
+  background-color: #4285F4;
+}
+
+input[type="radio"]:focus + span {
+	color: #fff;
+}
+
+/* ================ TOOLTIPS ================= */
+
+#radios label:hover::before {
+	content: attr(for);
+	font-family: Roboto, -apple-system, sans-serif;
+	text-transform: capitalize;
+	font-size: 11px;
+	position: absolute;
+	top: 170%;
+	left: 0;
+	right: 0;
+	opacity: 0.75;
+	background-color: #323232;
+	color: #fff;	
+	padding: 4px;
+	border-radius: 3px;
+  display: block;
+}
+
+
+
+#radios {
+	text-align: center;
+	margin: 0 auto;
+}
+        </style>
+
+
+        <script>
+            var dkit_contentString;
+            var CONTENT = 0;
+            var LATITUDE = 1;
+            var LONGITUDE = 2;
+            var locations = [];
+            var dkit_map;
+            var location_marker;
+            var mapWindow;
+            var directionsDisplay;
+            var directionsService; 
+            var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+            var iconType;
+            var facility;
+            var isDark = false;
+            var marker;
+      var infowindow;
+      var messagewindow;
+            
+            
+             function ajaxLoadMapDetails(locationType)
+
+            {
+                
+                           
+            
+ var click = document.getElementById('btn1');
+            
+            click.addEventListener("click", function ()
+{
+    isDark = true;
+     ajaxLoadMapDetails('all');
+        });
+               
+                
+                
+
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(success, error);
+                } else {
+                    alert('location not supported');
+                }
+
+//callbacks
+                function error(msg) {
+                    alert('Error in geolocation');
+                }
+
+                function success(position) {
+                    var lats = position.coords.latitude;
+                    var lngs = position.coords.longitude;
+
+                    document.getElementById("myField").value = lats + ", " + lngs;
+
+                }
+                ;
+               
+                var mapOptions;
+                directionsService = new google.maps.DirectionsService();
+                // route planner
+                directionsDisplay = new google.maps.DirectionsRenderer();
+                var currentLocationMap = {lat: 53.9849, lng: -6.3940};  // DkIT
+
+
+if(isDark === true)
+{
+    mapOptions = {zoom: 7, center: currentLocationMap, clickableIcons: false, styles: [
+                        {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+                        {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+                        {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+                        {
+                            featureType: 'administrative.locality',
+                            elementType: 'labels.text.fill',
+                            stylers: [{color: '#d59563'}]
+                        },
+                        {
+                            featureType: 'poi',
+                            elementType: 'labels.text.fill',
+                            stylers: [{color: '#d59563'}]
+                        },
+                        {
+                            featureType: 'poi.park',
+                            elementType: 'geometry',
+                            stylers: [{color: '#263c3f'}]
+                        },
+                        {
+                            featureType: 'poi.park',
+                            elementType: 'labels.text.fill',
+                            stylers: [{color: '#6b9a76'}]
+                        },
+                        {
+                            featureType: 'road',
+                            elementType: 'geometry',
+                            stylers: [{color: '#38414e'}]
+                        },
+                        {
+                            featureType: 'road',
+                            elementType: 'geometry.stroke',
+                            stylers: [{color: '#212a37'}]
+                        },
+                        {
+                            featureType: 'road',
+                            elementType: 'labels.text.fill',
+                            stylers: [{color: '#9ca5b3'}]
+                        },
+                        {
+                            featureType: 'road.highway',
+                            elementType: 'geometry',
+                            stylers: [{color: '#746855'}]
+                        },
+                        {
+                            featureType: 'road.highway',
+                            elementType: 'geometry.stroke',
+                            stylers: [{color: '#1f2835'}]
+                        },
+                        {
+                            featureType: 'road.highway',
+                            elementType: 'labels.text.fill',
+                            stylers: [{color: '#f3d19c'}]
+                        },
+                        {
+                            featureType: 'transit',
+                            elementType: 'geometry',
+                            stylers: [{color: '#2f3948'}]
+                        },
+                        {
+                            featureType: 'transit.station',
+                            elementType: 'labels.text.fill',
+                            stylers: [{color: '#d59563'}]
+                        },
+                        {
+                            featureType: 'water',
+                            elementType: 'geometry',
+                            stylers: [{color: '#17263c'}]
+                        },
+                        {
+                            featureType: 'water',
+                            elementType: 'labels.text.fill',
+                            stylers: [{color: '#515c6d'}]
+                        },
+                        {
+                            featureType: 'water',
+                            elementType: 'labels.text.stroke',
+                            stylers: [{color: '#17263c'}]
+                        }
+                    ]};
+                click.innerHTML = "Day";
+                
+                click.addEventListener("click", function ()
+{
+    isDark = false;
+     ajaxLoadMapDetails('all');
+        });
+}
+else
+{
+    mapOptions = {zoom: 7, center: currentLocationMap, clickableIcons: false};
+    click.innerHTML = "Night"; 
+}
+
+
+
+
+                
+                dkit_map = new google.maps.Map(document.getElementById('mapDiv'), mapOptions);
+                directionsDisplay.setMap(dkit_map);
+                directionsDisplay.setOptions({suppressMarkers: true});
+
+                // add directions to the route
+                directionsDisplay.setPanel(document.getElementById('directions'));
+
+
+
+
+                var fileName = "getMapDetails.php";  /* name of file to send request to */
+                var method = "POST";                     /* use POST method */
+                var urlParameterStringToSend = "locationType = " + locationType;           /* Construct a url parameter string to POST to fileName */
+                var http_request;
+
+                if (window.XMLHttpRequest)
+                {
+                    // code for IE7+, Firefox, Chrome, Opera, Safari
+                    http_request = new XMLHttpRequest();
+                } else
+                {
+                    // code for IE6, IE5
+                    http_request = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+
+                http_request.onreadystatechange = function ()
+
+                {
+                    if ((http_request.readyState === 4) && (http_request.status === 200))
+
+                    {
+                        read_http_request_data(http_request.responseText);
+                    }
+                };
+
+                http_request.open(method, fileName, true);
+                http_request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                http_request.send(urlParameterStringToSend);
+
+                function read_http_request_data(responseText)
+                {
+                    var jsonData = JSON.parse(responseText);
+                    var htmlString = "";
+
+                    for (var i = 0; i < jsonData.length; i++)
+
+                    {
+                        locations.push(['<div id="iw-container">' +
+                                    '<div class="iw-title">' + jsonData[i].title + '</div>' +
+                                    '<div class="iw-content">' +
+                                    '<div class="iw-subTitle">Description</div>' +
+                                    '<img src=' + jsonData[i].image + ' height="115" width="83">' +
+                                    '<p>' + jsonData[i].content + '</p>' +
+                                    '<div class="iw-subTitle">Contacts</div>' +
+                                    '<p>' + jsonData[i].address + '<br>' +
+                                    '<br> Phone: ' + jsonData[i].phone + '<br> Site: ' + jsonData[i].website + '</p>' +
+                                    '</div>' +
+                                    '<div class="iw-bottom-gradient"></div>' +
+                                    '</div>', parseFloat(jsonData[i].latitude), parseFloat(jsonData[i].longitude)]);
+
+                        htmlString += "<option value='" + jsonData[i].address + "'>" + jsonData[i].title + "</option>";
+                    }
+
+                    htmlString += "<option id='myField' value=''>" + "Your location" + "</option>";
+                    htmlString += "</select>";
+
+                    htmlFromString = "<select id='from'>" + htmlString;
+                    htmlToString = "<select id='to'>" + htmlString;
+                    document.getElementById('fromDiv').innerHTML = htmlFromString;
+
+                    document.getElementById('toDiv').innerHTML = htmlToString;
+
+                    location_marker;
+                    mapWindow = new google.maps.InfoWindow();
+
+
+
+                    for (var i = 0; i < locations.length; i++)
+                    {
+                        if(locationType === 'all')
+                        {
+                            addLocationToMap(i);
+                        }
+                        else if (jsonData[i].locationType === locationType)
+                        {
+                            addLocationToMap(i);
+                        }
+                        
+                        
+                    }
+                    function addLocationToMap(i)
+                    {
+                        
+                            location_marker = new google.maps.Marker({position: new google.maps.LatLng(locations[i][LATITUDE], locations[i][LONGITUDE]),
+                                map: dkit_map});
+
+
+                            google.maps.event.addListener(location_marker, 'click', (function (location_marker, i)
+                            {
+                                return function ()
+                                {
+                                    mapWindow.setContent(locations[i][CONTENT]);
+                                    mapWindow.open(dkit_map, location_marker);
+                                };
+                            })(location_marker, i));
+                            
+                            
+                          var service = new google.maps.places.PlacesService(dkit_map);    
+                     
+                     service.nearbySearch({
+                     location: currentLocationMap,
+                     radius: 5000,
+                     type: [jsonData[i].locationType]
+                     }, nearbyServicesCallback);
+                     
+                     
+                      function nearbyServicesCallback(results, status, locationIcon) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    for (var i = 0; i < results.length; i++) {
+                        createMarker(results[i], locationIcon);
+                    }
+                }
+            }
+            
+            function createMarker(place, locationIcon) {
+                
+                
+                if (jsonData[i].locationType === 'restaurant')
+                            {
+                                locationIcon = "img/restaurant.png";
+                            } else if (jsonData[i].locationType === 'hospital')
+                            {
+                                locationIcon = "img/hospital.png";
+                            } else if (jsonData[i].locationType === 'night_club')
+                            {
+                                locationIcon = "img/night_club.png";
+                            }
+                            else if (jsonData[i].locationType === 'parking')
+                            {
+                                locationIcon = "img/parking.png";
+                            }
+                
+                
+                
+                var placeLoc = place.geometry.location;
+                var marker = new google.maps.Marker({
+                    icon: locationIcon,
+                    map: dkit_map,
+                    position: place.geometry.location
+                });
+            }
+            
+            google.maps.event.addListener(mapWindow, 'domready', function ()
+                    {
+                        // Reference to the DIV that wraps the bottom of infowindow
+                        var iwOuter = $('.gm-style-iw');
+
+                        /* Since this div is in a position prior to .gm-div style-iw.
+                         * We use jQuery and create a iwBackground variable,
+                         * and took advantage of the existing reference .gm-style-iw for the previous div with .prev().
+                         */
+                        var iwBackground = iwOuter.prev();
+
+                        // Removes background shadow DIV
+                        iwBackground.children(':nth-child(2)').css({'display': 'none'});
+
+                        // Removes white background DIV
+                        iwBackground.children(':nth-child(4)').css({'display': 'none'});
+
+                        // Moves the infowindow 115px to the right.
+                        iwOuter.parent().parent().css({left: '115px'});
+
+                        // Moves the shadow of the arrow 76px to the left margin.
+                        iwBackground.children(':nth-child(1)').attr('style', function (i, s)
+                        {
+                            return s + 'left: 76px !important;'
+                        });
+
+                        // Moves the arrow 76px to the left margin.
+                        iwBackground.children(':nth-child(3)').attr('style', function (i, s)
+                        {
+                            return s + 'left: 76px !important;'
+                        });
+
+                        // Changes the desired tail shadow color.
+                        iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'rgba(72, 181, 233, 0.6) 0px 1px 6px', 'z-index': '1'});
+
+                        // Reference to the div that groups the close button elements.
+                        var iwCloseBtn = iwOuter.next();
+
+                        // Apply the desired effect to the close button
+                        iwCloseBtn.css({opacity: '1', right: '38px', top: '3px', border: '7px solid #48b5e9', 'border-radius': '13px', 'box-shadow': '0 0 5px #3990B9'});
+
+                        // If the content of infowindow not exceed the set maximum height, then the gradient is removed.
+                        if ($('.iw-content').height() < 140)
+                        {
+                            $('.iw-bottom-gradient').css({display: 'none'});
+                        }
+
+                        // The API automatically applies 0.7 opacity to the button after the mouseout event. This function reverses this event to the desired value.
+                        iwCloseBtn.mouseout(function ()
+                        {
+                            $(this).css({opacity: '1'});
+                        });
+                    });
+                     
+                    };
+                    
+                    
+                     
+                    
+
+            
+
+                     
+
+                    
+
+
+        /*            infowindow = new google.maps.InfoWindow({
+          content: document.getElementById('form')
+        });
+
+        messagewindow = new google.maps.InfoWindow({
+          content: document.getElementById('message')
+        });
+
+        google.maps.event.addListener(dkit_map, 'click', function(event) {
+          marker = new google.maps.Marker({
+            position: event.latLng,
+            map: dkit_map
+          });
+
+
+          google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(dkit_map, marker);
+          });
+        });
+ */
+                    /*       function icons(){
+                     
+                     service.nearbySearch({
+                     location: currentLocationMap,
+                     radius: 50000,
+                     type: ["hospital"]
+                     }, callback);
+                     } 
+                     
+                     icons();*/
+                }
+            }
+
+            //     google.maps.event.addDomListener(mapWindow, 'load', ajaxLoadMapDetails('restaurant'));
+
+      function saveData() {
+        var name = escape(document.getElementById('name').value);
+        var address = escape(document.getElementById('address').value);
+        var type = document.getElementById('type').value;
+        var latlng = marker.getPosition();
+        var url = 'phpsqlinfo_addrow.php?name=' + name + '&address=' + address +
+                  '&type=' + type + '&lat=' + latlng.lat() + '&lng=' + latlng.lng();
+
+        downloadUrl(url, function(data, responseCode) {
+
+          if (responseCode == 200 && data.length <= 1) {
+            infowindow.close();
+            messagewindow.open(dkit_map, marker);
+          }
+        });
+      }
+
+      function downloadUrl(url, callback) {
+        var request = window.ActiveXObject ?
+            new ActiveXObject('Microsoft.XMLHTTP') :
+            new XMLHttpRequest;
+
+        request.onreadystatechange = function() {
+          if (request.readyState == 4) {
+            request.onreadystatechange = doNothing;
+            callback(request.responseText, request.status);
+          }
+        };
+
+        request.open('GET', url, true);
+        request.send(null);
+      }
+
+      function doNothing () {
+      }
+
+
+            var travelMode = "DRIVING";
+
+            function calculateRoute()
+            {
+                var start = document.getElementById('from').value;
+                var end = document.getElementById('to').value;
+
+                var causeway = "44 Causeway Rd, Bushmills BT57 8SU, UK";
+                var moher = "Lislorkan North, Liscannor, Co. Clare, Ireland";
+                var newgrange = "Newgrange, Donore, Co. Meath, Ireland";
+                var dublin = "Dublin, Co. Dublin, Ireland";
+
+                popup();
+
+                var request = {origin: start,
+                    destination: end,
+                    travelMode: google.maps.TravelMode[travelMode]};
+
+                directionsService.route(request, function (response, status)
+                {
+                    if (status == google.maps.DirectionsStatus.OK)
+                    {
+                        directionsDisplay.setDirections(response);
+                    }
+                });
+
+                function popup()
+                {
+                    if (end == causeway)
+                    {
+                        location_marker = new google.maps.Marker({position: new google.maps.LatLng(locations[0][LATITUDE], locations[0][LONGITUDE]), map: dkit_map});
+                        mapWindow.setContent(locations[0][CONTENT]);
+                        mapWindow.open(dkit_map, location_marker);
+                    } else if (end == newgrange)
+                    {
+                        location_marker = new google.maps.Marker({position: new google.maps.LatLng(locations[1][LATITUDE], locations[1][LONGITUDE]), map: dkit_map});
+                        mapWindow.setContent(locations[1][CONTENT]);
+                        mapWindow.open(dkit_map, location_marker);
+                    } else if (end == dublin)
+                    {
+                        location_marker = new google.maps.Marker({position: new google.maps.LatLng(locations[2][LATITUDE], locations[2][LONGITUDE]), map: dkit_map});
+                        mapWindow.setContent(locations[2][CONTENT]);
+                        mapWindow.open(dkit_map, location_marker);
+                    } else if (end == moher)
+                    {
+                        location_marker = new google.maps.Marker({position: new google.maps.LatLng(locations[3][LATITUDE], locations[3][LONGITUDE]), map: dkit_map});
+                        mapWindow.setContent(locations[3][CONTENT]);
+                        mapWindow.open(dkit_map, location_marker);
+                    }
+                }
+                ;
+            }
+            
+            
+//google.maps.event.addDomListener(mapWindow, 'load', ajaxLoadMapDetails);
+        </script>
+
+    </head>
+    <body id="top" class="page-2" onload="ajaxLoadMapDetails('all');">
+        <div id="map-canvas"></div>
+        <div class="tm-navbar-container tm-navbar-container-dark">
+
+            <nav class="navbar navbar-full navbar-fixed-top bg-inverse">
+                <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar">
+                    &#9776;
+                </button>
+                <div class="collapse navbar-toggleable-sm" id="tmNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item" >
+                            <div id="fromContainer">
+                                <label>Method of Transportation:</label>
+<div id="radios">
+		<label for="driving" class="material-icons">
+                    <input type="radio" name="mode" id="driving" onclick="travelMode = 'DRIVING';" checked/>
+			<span>&#xE531;</span>
+		</label>								
+		<label for="cycling" class="material-icons">
+			<input type="radio" name="mode" id="cycling" onclick="travelMode = 'BICYCLING';"/>
+			<span>&#xE52F;</span>
+		</label>
+		<label for="walking" class="material-icons">
+			<input type="radio" name="mode" id="walking" onclick="travelMode = 'WALKING';"/>
+			<span>&#xE536;</span>
+		</label>
+                <label for="bus" class="material-icons">
+			<input type="radio" name="mode" id="bus" onclick="travelMode = 'BUS';"/>
+			<span>&#xe530;</span>
+		</label>
+	</div>
+                            </div>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <div id="fromContainer">
+                                <label>What are you looking for?</label>
+                                <div class="styled-select blue semi-square">
+                                    <select onchange="ajaxLoadMapDetails(value);">
+                                        <option value="all" selected>All</option>
+                                        <option value="hospital">Hospitals</option>
+                                        <option value="restaurant">Restaurants</option>
+                                        <option value="parking">Parking Spaces</option>
+                                        <option value="night_club">Night Clubs</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li> 
+
+                        <li class="nav-item">
+                            <div id="fromContainer">
+                                <label>From:</label>
+                                <div id="fromDiv" class="styled-select blue semi-square"></div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div id="toContainer">
+                                <label>To:</label>
+                                <div id="toDiv" class="styled-select blue semi-square"></div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div id="toContainer">
+                                <button type="submit" id="btn" onclick="calculateRoute();">Enter</button> 
+                            </div>
+
+                        </li>
+                        <li class="nav-item">
+                            <div id="toContainer">
+                                <button type="submit" id="btn1">Night</button> 
+                            </div>
+
+                        </li>
+                        <li class="nav-item">
+                            <div id="toContainer">
+                                <button onclick="location.href = 'index.php';" id="btn1">Home</button> 
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+
+
+
+
+
+        <div id="mapDiv" class="tm-container text-xs-center"  style="width: 90%; height: 900px;"> </div>
+        <details><summary>Directions</summary>
+            <div id="directions"></div>
+        </details>
+
+
+
+
+
+
+
+    <!--div id="form">
+      <table>
+      <tr><td>Name:</td> <td><input type='text' id='name'/> </td> </tr>
+      <tr><td>Address:</td> <td><input type='text' id='address'/> </td> </tr>
+      <tr><td>Type:</td> <td><select id='type'> 
+                 <option value='bar' SELECTED>bar</option>
+                 <option value='restaurant'>restaurant</option>
+                 </select> </td></tr>
+                 <tr><td></td><td><input type='button' value='Save' onclick='saveData()'/></td></tr>
+      </table>
+    </div!-->
+    <!--div id="message">Location saved</div!-->
+
+
+
+
+
+
+        <script src="js/jquery-1.11.3.min.js"></script>             <!-- jQuery (https://jquery.com/download/) -->
+        <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script> <!-- Tether for Bootstrap, http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h --> 
+        <script src="js/bootstrap.min.js"></script>                 <!-- Bootstrap (http://v4-alpha.getbootstrap.com/) -->
+        <script src="js/jquery.singlePageNav.min.js"></script>      <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->           
+
+        <!-- Templatemo scripts -->
+        <script>
+
+                                    $(document).ready(function ()
+                                    {
+
+                                        var mobileTopOffset = 54;
+                                        var tabletTopOffset = 74;
+                                        var desktopTopOffset = 79;
+                                        var topOffset = desktopTopOffset;
+
+                                        if ($(window).width() <= 767)
+                                        {
+                                            topOffset = mobileTopOffset;
+                                        } else if ($(window).width() <= 991)
+                                        {
+                                            topOffset = tabletTopOffset;
+                                        }
+
+                                        /* Single page nav
+                                         -----------------------------------------*/
+                                        $('#tmNavbar').singlePageNav({
+                                            'currentClass': "active",
+                                            offset: topOffset,
+                                            'filter': ':not(.external)'
+                                        });
+
+                                        if ($(window).width() < 570)
+                                        {
+                                            $('.tm-full-width-large-table').addClass('table-responsive');
+                                        } else
+                                        {
+                                            $('.tm-full-width-large-table').removeClass('table-responsive');
+                                        }
+
+
+                                        /* Collapse menu after click 
+                                         -----------------------------------------*/
+                                        $('#tmNavbar a').click(function ()
+                                        {
+                                            $('#tmNavbar').collapse('hide');
+                                        });
+
+
+                                        /* Handle nav offset & table responsive upon window resize
+                                         --------------------------------------------------------------*/
+                                        $(window).resize(function ()
+                                        {
+
+                                            if ($(window).width() < 768)
+                                            {
+                                                topOffset = mobileTopOffset;
+                                            } else if ($(window).width() <= 991)
+                                            {
+                                                topOffset = tabletTopOffset;
+                                            } else
+                                            {
+                                                topOffset = desktopTopOffset;
+                                            }
+
+                                            $('#tmNavbar').singlePageNav({
+                                                'currentClass': "active",
+                                                offset: topOffset,
+                                                'filter': ':not(.external)'
+                                            });
+
+                                            if ($(window).width() < 570)
+                                            {
+                                                $('.tm-full-width-large-table').addClass('table-responsive');
+                                            } else
+                                            {
+                                                $('.tm-full-width-large-table').removeClass('table-responsive');
+                                            }
+                                        });
+
+                                    });
+
+        </script>    
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <p class="text-xs-center tm-footer-text">Copyright &copy; 2016 Irish Tourism Board</p>
+            </div>
+        </div>
+
+
+        <script src="js/jquery-1.11.3.min.js"></script>             <!-- jQuery (https://jquery.com/download/) -->
+        <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script> <!-- Tether for Bootstrap, http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h --> 
+        <script src="js/bootstrap.min.js"></script>                 <!-- Bootstrap (http://v4-alpha.getbootstrap.com/) -->
+        <script src="js/jquery.singlePageNav.min.js"></script>      <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->           
+
+        <!-- Templatemo scripts -->
+        <script>
+
+                                    $(document).ready(function ()
+                                    {
+
+                                        var mobileTopOffset = 54;
+                                        var tabletTopOffset = 74;
+                                        var desktopTopOffset = 79;
+                                        var topOffset = desktopTopOffset;
+
+                                        if ($(window).width() <= 767)
+                                        {
+                                            topOffset = mobileTopOffset;
+                                        } else if ($(window).width() <= 991)
+                                        {
+                                            topOffset = tabletTopOffset;
+                                        }
+
+                                        /* Single page nav
+                                         -----------------------------------------*/
+                                        $('#tmNavbar').singlePageNav({
+                                            'currentClass': "active",
+                                            offset: topOffset,
+                                            'filter': ':not(.external)'
+                                        });
+
+                                        if ($(window).width() < 570)
+                                        {
+                                            $('.tm-full-width-large-table').addClass('table-responsive');
+                                        } else
+                                        {
+                                            $('.tm-full-width-large-table').removeClass('table-responsive');
+                                        }
+
+
+                                        /* Collapse menu after click 
+                                         -----------------------------------------*/
+                                        $('#tmNavbar a').click(function ()
+                                        {
+                                            $('#tmNavbar').collapse('hide');
+                                        });
+
+
+                                        /* Handle nav offset & table responsive upon window resize
+                                         --------------------------------------------------------------*/
+                                        $(window).resize(function ()
+                                        {
+
+                                            if ($(window).width() < 768)
+                                            {
+                                                topOffset = mobileTopOffset;
+                                            } else if ($(window).width() <= 991)
+                                            {
+                                                topOffset = tabletTopOffset;
+                                            } else
+                                            {
+                                                topOffset = desktopTopOffset;
+                                            }
+
+                                            $('#tmNavbar').singlePageNav({
+                                                'currentClass': "active",
+                                                offset: topOffset,
+                                                'filter': ':not(.external)'
+                                            });
+
+                                            if ($(window).width() < 570)
+                                            {
+                                                $('.tm-full-width-large-table').addClass('table-responsive');
+                                            } else
+                                            {
+                                                $('.tm-full-width-large-table').removeClass('table-responsive');
+                                            }
+                                        });
+
+                                    });
+
+        </script>
+    </body>
+</html>
